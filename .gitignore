@@ -1,0 +1,10 @@
+# Local backups and operating-system files
+/private-backups/
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.bak
+*.tmp
+
+# CV is intentionally unavailable for now. Remove this line to republish it.
+/files/HanlinZhao_CV.pdf

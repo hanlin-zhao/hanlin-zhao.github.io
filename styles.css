@@ -1,0 +1,448 @@
+/* ============================================================
+   Hanlin Zhao — academic website
+   Fonts are self-hosted (no third-party CDN request).
+   ============================================================ */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url(assets/fonts/inter-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url(assets/fonts/inter-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  /* Blue scale derived from the TSE logo. --blue-800 is the colour sampled
+     pixel-for-pixel from the logo file; every other step holds that hue and
+     ramps saturation down as lightness rises, so the tints stay blue rather
+     than turning lavender. */
+  --blue-950: #020b3b;
+  --blue-900: #05125c;
+  --blue-800: #061987;
+  --blue-700: #1b30a7;
+  --blue-500: #5c6abc;
+  --blue-300: #afb5d4;
+  --blue-200: #d3d6e9;
+  --blue-100: #eaebf6;
+  --blue-050: #f5f6fc;
+
+  --tse-blue: var(--blue-800);
+  --tse-blue-dark: var(--blue-900);
+  --tse-blue-tint: var(--blue-050);
+
+  --ink: #10141f;
+  --ink-soft: #2c3444;
+  --muted: #626b7c;
+  --faint: #687283;            /* passes AA at small sizes on white */
+  --line: #e2e5ec;
+  --paper: #ffffff;
+
+  --max-width: 1120px;
+  --gutter: 28px;
+  --num-indent: 2.1rem;   /* width of the hanging number column */
+  --header-h: 71px;
+
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--tse-blue); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--tse-blue-dark); }
+
+:focus-visible { outline: 3px solid rgba(6, 25, 135, .35); outline-offset: 3px; border-radius: 2px; }
+
+.skip-link {
+  position: fixed; left: 1rem; top: -5rem; z-index: 9999;
+  padding: .7rem 1rem; background: var(--tse-blue); color: #fff;
+  border-radius: 4px; text-decoration: none;
+}
+.skip-link:focus { top: 1rem; }
+
+.shell {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* ---------- header ---------- */
+
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 255, 255, .93);
+  backdrop-filter: blur(12px);
+  border-top: 3px solid var(--tse-blue);
+  border-bottom: 1px solid var(--line);
+}
+.nav-wrap {
+  max-width: var(--max-width); margin: 0 auto;
+  min-height: 68px; padding: 0 var(--gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+}
+.name-mark {
+  color: var(--ink); text-decoration: none;
+  font-weight: 600; letter-spacing: -.01em; font-size: 1.02rem;
+}
+.site-nav { display: flex; align-items: center; gap: 1.5rem; font-size: .9rem; }
+.site-nav a { color: #3a4252; text-decoration: none; }
+.site-nav a:hover { color: var(--tse-blue); }
+
+/* ---------- hero ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: clamp(2.25rem, 4vw, 3.5rem);
+  align-items: start;
+  padding-top: 54px;
+}
+/* min-width:0 stops a single wide child from forcing the whole column wider
+   than the viewport, which grid items otherwise do by default. */
+.hero-visual { grid-column: 1; grid-row: 1; min-width: 0; }
+.hero-copy { grid-column: 2; grid-row: 1; min-width: 0; }
+
+.portrait {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 4 / 5; object-fit: cover;
+  border-radius: 4px; background: #eceef3;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.35rem, 3.6vw, 3.15rem);
+  line-height: 1.04;
+  letter-spacing: -.024em;
+  font-weight: 700;
+}
+/* Pronunciation guide. Sized in rem rather than em so it stays legible when
+   the name itself scales down on narrow screens; nowrap keeps it whole if it
+   has to drop to its own line. */
+.pron {
+  font-size: .9rem; font-weight: 400; font-style: italic;
+  letter-spacing: normal; color: var(--muted);
+  white-space: nowrap; margin-left: .6rem;
+}
+
+.identity {
+  max-width: 40em; margin: 1.15rem 0 0;
+  font-size: 1.07rem; line-height: 1.66; color: var(--ink-soft);
+}
+.market-line {
+  max-width: 40em; margin: .85rem 0 0;
+  font-size: 1.02rem; color: var(--ink); font-weight: 600;
+}
+
+.actions { margin-top: 1.6rem; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: .6rem 1.15rem; border-radius: 3px;
+  font-size: .93rem; font-weight: 600; text-decoration: none;
+  transition: background .12s ease, border-color .12s ease, color .12s ease;
+}
+.btn-primary { color: #fff; background: var(--tse-blue); }
+.btn-primary:hover { color: #fff; background: var(--tse-blue-dark); }
+.btn-secondary { color: var(--tse-blue); background: #fff; border: 1px solid var(--blue-300); }
+.btn-secondary:hover { border-color: var(--tse-blue); background: var(--tse-blue-tint); }
+.btn-text { color: var(--ink-soft); padding-left: .3rem; padding-right: .3rem; }
+.btn-text:hover { color: var(--tse-blue); }
+
+/* Flex so each field is its own wrap opportunity. As inline text the fields
+   would be one unbreakable run and would widen the page on a phone. */
+.fields {
+  margin: 1.5rem 0 0; padding-top: 1.05rem; border-top: 1px solid var(--line);
+  font-size: .87rem; color: var(--muted);
+  display: flex; flex-wrap: wrap; align-items: baseline; row-gap: .2rem;
+}
+.fields span { white-space: nowrap; }
+.fields i { font-style: normal; color: var(--blue-300); padding: 0 .5rem; }
+
+/* ---------- sections ---------- */
+
+.section { padding-top: 42px; padding-bottom: 56px; border-top: 1px solid var(--line); }
+.research { margin-top: 38px; }
+
+/* Large enough to register as a section marker, deliberately well short of the
+   Working Papers / Work in Progress headings. Tracking eases off as size grows. */
+.sec-eyebrow {
+  margin: 0 0 .7rem;
+  color: var(--tse-blue); text-transform: uppercase;
+  letter-spacing: .105em; font-size: .88rem; font-weight: 700;
+}
+.section h2 {
+  margin: 0 0 1.15rem;
+  font-size: clamp(1.7rem, 2.6vw, 2.1rem);
+  line-height: 1.16; letter-spacing: -.02em; font-weight: 700;
+}
+
+/* ---------- papers ---------- */
+
+.research { counter-reset: paper; }
+/* Numbered so the count of working papers is legible at a glance. The number
+   hangs in its own column so wrapped title lines align under the title, not
+   under the digit. */
+.paper { padding: 1.15rem 0 0; margin-top: .95rem; border-top: 1px solid var(--line);
+  counter-increment: paper; }
+.paper:first-of-type { margin-top: 0; border-top: 0; padding-top: 0; }
+
+.paper-featured {
+  padding: 1.25rem 1.5rem 1.35rem;
+  border: 1px solid var(--blue-200); border-left: 4px solid var(--tse-blue);
+  border-radius: 4px;
+  background: var(--blue-050);
+}
+.kicker {
+  margin: 0 0 .6rem var(--num-indent);
+  color: var(--tse-blue); text-transform: uppercase;
+  font-size: .69rem; font-weight: 700; letter-spacing: .13em;
+}
+.paper h3 {
+  margin: 0;
+  padding-left: var(--num-indent); text-indent: calc(-1 * var(--num-indent));
+  font-size: clamp(1.12rem, 1.7vw, 1.32rem);
+  line-height: 1.36; letter-spacing: -.012em; font-weight: 600;
+}
+.paper h3::before {
+  content: counter(paper) ".";
+  display: inline-block; width: var(--num-indent); text-indent: 0;
+  color: var(--muted); font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.paper .meta { margin: .3rem 0 0 var(--num-indent); color: var(--muted); font-size: .93rem; }
+.paper .meta a { color: var(--muted); text-decoration: underline; text-decoration-color: var(--blue-300); }
+.paper .meta a:hover { color: var(--tse-blue); text-decoration-color: currentColor; }
+.paper .meta .status {
+  margin-left: .55rem; padding-left: .6rem; border-left: 1px solid var(--line);
+  font-style: italic;
+}
+.lede { margin: .6rem 0 0 var(--num-indent); color: var(--ink-soft); font-size: 1rem; }
+
+.links {
+  margin: .6rem 0 0 var(--num-indent);
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.3rem;
+  font-size: .89rem; font-weight: 600;
+}
+.links > a { color: var(--tse-blue); }
+.links .pending { color: var(--muted); font-weight: 500; }
+
+/* Abstracts expand in place; no JavaScript involved. */
+.links details { width: 100%; }
+.links summary {
+  width: max-content; cursor: pointer; color: var(--tse-blue);
+  list-style: none; text-decoration: underline;
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.links summary::-webkit-details-marker { display: none; }
+.links summary::after { content: " +"; text-decoration: none; }
+.links details[open] summary::after { content: " \2212"; }
+/* Pull the closed summary up onto the same line as the sibling link. */
+.links details:not([open]) { width: max-content; }
+.abstract { margin: .85rem 0 0; }
+/* Full column width, as requested. Long measures need more leading to stay
+   readable, so line-height goes up with the line length. */
+.abstract p { margin: 0; color: #3d4553; font-size: .96rem; line-height: 1.8; font-weight: 400; }
+
+.presented { margin: .55rem 0 0 var(--num-indent); font-size: .82rem; color: var(--faint); line-height: 1.55; }
+/* Labelled so the venue list is not just an unexplained grey run. */
+.presented::before { content: "Presented at "; font-weight: 600; color: var(--muted); }
+.footnote { margin: 1rem 0 0; font-size: .78rem; color: var(--faint); }
+
+/* The job market paper sits alone under its own heading, so it is outside the
+   working-paper count: it shows no number and does not advance the counter,
+   which lets the working papers below start at 1. With no number to hang, the
+   card drops the number column altogether.
+   These rules must stay after the .paper ones above: they match at the same
+   specificity, so source order is what decides. */
+.paper-featured { counter-increment: none; }
+.paper-featured h3 { padding-left: 0; text-indent: 0; }
+.paper-featured h3::before { content: none; }
+.paper-featured .meta,
+.paper-featured .lede,
+.paper-featured .links,
+.paper-featured .presented { margin-left: 0; }
+
+/* Work in Progress is set exactly like Working Papers; its own counter-reset
+   restarts the numbering at 1 rather than continuing from the papers above. */
+/* Scoped under .section so it outranks the `.section h2` rule above, which
+   would otherwise zero the top margin. */
+.section h2.sub-heading {
+  margin: 3rem 0 1.15rem;
+  font-size: clamp(1.7rem, 2.6vw, 2.1rem);
+  line-height: 1.16; letter-spacing: -.02em; font-weight: 700;
+}
+.wip { margin: 0; padding: 0; list-style: none; counter-reset: wip; }
+.wip li {
+  counter-increment: wip;
+  padding: .55rem 0 .55rem var(--num-indent); text-indent: calc(-1 * var(--num-indent));
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft); font-size: 1rem;
+}
+.wip li:first-child { border-top: 1px solid var(--line); }
+.wip li::before {
+  content: counter(wip) ".";
+  display: inline-block; width: var(--num-indent); text-indent: 0;
+  color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.wip li span { color: var(--muted); font-size: .92rem; }
+/* Margins rather than spaces inside content: HTML whitespace collapse would
+   otherwise butt the dash against the following word. */
+.wip li span::before { content: "—"; color: var(--blue-300); margin: 0 .45em; }
+/* Venue list on a work-in-progress entry: its own line, styled like .presented
+   on the papers above. Overrides the em-dash separator inherited from span. */
+.wip li span.venues {
+  display: block; margin-top: .3rem; text-indent: 0;
+  font-size: .82rem; color: var(--faint); line-height: 1.55;
+}
+.wip li span.venues::before {
+  content: "Presented at "; margin: 0;
+  font-weight: 600; color: var(--muted);
+}
+
+/* ---------- teaching ---------- */
+
+
+.award {
+  margin: .1rem 0 1.3rem; padding-left: .85rem;
+  border-left: 3px solid var(--tse-blue);
+  color: var(--ink-soft); font-size: 1rem;
+}
+.teaching-intro { margin: 0 0 .55rem; color: var(--muted); font-size: .92rem; }
+
+.course-list { margin: 0; padding: 0; list-style: none; }
+/* Course, supervisor and term share one line; the two-line version cost twice
+   the height for the same information. */
+.course-list li {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .55rem;
+  padding: .5rem 0; border-top: 1px solid var(--line);
+}
+.course-list li:last-child { border-bottom: 1px solid var(--line); }
+.course { font-weight: 600; }
+.detail { color: var(--muted); font-size: .88rem; }
+.when { margin-left: auto; color: var(--muted); font-size: .86rem; white-space: nowrap; }
+
+
+/* ---------- references ---------- */
+
+.ref-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; }
+.ref-card {
+  display: flex; flex-direction: column; gap: .12rem;
+  padding: .95rem 1rem;
+  border: 1px solid var(--line); border-radius: 4px;
+  background: #fff; text-decoration: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.ref-card:hover { border-color: var(--blue-500); box-shadow: 0 10px 24px rgba(17, 24, 39, .06); }
+.ref-card strong { color: var(--ink); font-size: .98rem; font-weight: 600; margin-bottom: .2rem; }
+.ref-card span { color: var(--muted); font-size: .86rem; line-height: 1.45; }
+.ref-card .where { color: var(--faint); }
+
+/* ---------- contact + footer ---------- */
+
+.contact {
+  padding-top: 62px; padding-bottom: 62px;
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center; gap: 3rem;
+}
+.contact-name { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
+.contact-role { margin: .3rem 0 0; color: var(--muted); font-size: .95rem; }
+.contact-mail { margin: .55rem 0 0; }
+.tse-affiliation { flex: 0 0 auto; display: block; }
+.tse-affiliation img { display: block; width: min(230px, 32vw); height: auto; }
+
+/* The page's closing note is the TSE logo in the contact block, so the footer
+   stays quiet rather than ending on a dark slab. */
+.site-footer { background: var(--paper); color: var(--muted); border-top: 1px solid var(--line); }
+.footer-inner {
+  min-height: 76px; display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; font-size: .78rem;
+}
+
+/* ---------- responsive ---------- */
+
+/* Four reference cards need roughly 240px each; below that they go two-up. */
+@media (max-width: 1000px) {
+  .ref-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    padding-top: 40px;
+  }
+  .hero-visual { grid-column: 1; grid-row: 1; width: 232px; }
+  .hero-copy { grid-column: 1; grid-row: 2; }
+  /* Navigation stays available on phones — every link, just smaller. */
+  .site-nav { gap: 1.05rem; font-size: .83rem; }
+  .section { padding-top: 40px; padding-bottom: 58px; }
+  
+  .research { margin-top: 34px; }
+  .paper-featured { padding: 1.4rem 1.3rem 1.5rem; }
+  .ref-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact { flex-direction: column; align-items: flex-start; gap: 2rem; }
+  .tse-affiliation img { width: 200px; max-width: 62vw; }
+}
+
+@media (max-width: 560px) {
+  :root { --gutter: 20px; }
+  .ref-grid { grid-template-columns: 1fr; }
+  .when { margin-left: 0; width: 100%; }
+  .section h2.sub-heading { margin-top: 2.1rem; }
+  body { font-size: 16px; }
+  /* The name is the first thing in the page below this bar, so the header
+     spends its width on navigation instead of repeating it. */
+  .name-mark { display: none; }
+  .site-nav { width: 100%; justify-content: space-between; gap: .5rem; }
+  /* Middots would strand at line ends once the fields wrap; spacing carries it. */
+  .fields i { display: none; }
+  .fields { column-gap: 1.15rem; }
+  /* The rule divider strands at the start of a wrapped line; give it its own row. */
+  .paper .meta .status {
+    display: block; margin-left: 0; padding-left: 0; border-left: 0;
+  }
+  .hero-visual { width: 200px; }
+  .footer-inner {
+    flex-direction: column; align-items: flex-start;
+    padding-top: 1.1rem; padding-bottom: 1.1rem; gap: .3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+@media print {
+  .site-header, .skip-link { display: none; }
+  body { font-size: 11pt; }
+  .links details { display: none; }
+}

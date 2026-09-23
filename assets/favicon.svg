@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hanlin Zhao">
+  <!-- Letterforms are paths, not text: SVG favicons cannot load the page webfont,
+       so text would render in a different system font on every OS. -->
+  <rect width="64" height="64" rx="9" fill="#061987"/>
+  <g fill="#ffffff">
+    <rect x="11" y="19" width="5.5" height="26"/>
+    <rect x="24" y="19" width="5.5" height="26"/>
+    <rect x="11" y="29.5" width="18.5" height="5"/>
+    <path d="M34.5 19H53v5.4L42.2 39.6H53V45H34.5v-5.4L45.3 24.4H34.5Z"/>
+  </g>
+</svg>
