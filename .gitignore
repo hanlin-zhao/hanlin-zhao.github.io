@@ -6,8 +6,5 @@ Desktop.ini
 *.bak
 *.tmp
 
-# CV is intentionally unavailable for now. Remove this line to republish it.
-/files/HanlinZhao_CV.pdf
-
 # JMP is available upon request and must not be published.
 /files/Hanlin_Zhao_JMP.pdf
