@@ -232,6 +232,15 @@ a:hover { color: var(--tse-blue-dark); }
   font-size: clamp(1.12rem, 1.7vw, 1.32rem);
   line-height: 1.36; letter-spacing: -.012em; font-weight: 600;
 }
+.paper h3 a {
+  color: var(--tse-blue);
+  text-decoration: none;
+}
+.paper h3 a:hover,
+.paper h3 a:focus-visible {
+  color: var(--tse-blue-dark);
+  text-decoration: underline;
+}
 .paper h3::before {
   content: counter(paper) ".";
   display: inline-block; width: var(--num-indent); text-indent: 0;
